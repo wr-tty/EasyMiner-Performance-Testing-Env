@@ -144,7 +144,7 @@ services:
     image: wrtty/taurus:latest
     depends_on:
       easyminer-frontend:
-        condition: service_healthyg
+        condition: service_healthy
       easyminer-backend:
         condition: service_healthy
       easyminer-scorer:
