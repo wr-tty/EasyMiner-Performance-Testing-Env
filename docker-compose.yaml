@@ -18,7 +18,10 @@ services:
 #      - config_volume:/var/www/html/easyminercenter/app/config
 #      - ./EasyMinerCenter/log:/var/www/html/easyminercenter/log
     container_name: easyminer-frontend
+#    travisCI
     image: wrtty/easyminer-frontend:dev
+#    local
+#    image: easyminer-frontend:v2.4-xweir00
     depends_on:
       - easyminer-mysql
     ports:
@@ -67,6 +70,8 @@ services:
       - ./confs/:/etc/prometheus/confs/
     ports:
       - "9090:9090"
+    networks:
+      - easyminer
   CAdvisor:
     container_name: cadvisor
     image: google/cadvisor:latest
@@ -79,6 +84,8 @@ services:
       - /var/lib/docker/:/var/lib/docker:ro
     ports:
       - "9000:8080"
+    networks:
+      - easyminer
   node-exporter:
     container_name: node-exporter
     depends_on:
@@ -86,6 +93,8 @@ services:
     image: prom/node-exporter
     ports:
       - '9100:9100'
+    networks:
+      - easyminer
   grafana:
     image: grafana/grafana:latest
     container_name: grafana
@@ -118,7 +127,10 @@ services:
     ports:
       - '8008:8008'
     command:
+#     TravisCI
       - '../EasyMiner-Performance-Tests/my-config.yml'
+#     Local
+#      - '/EasyMiner-Performance-Tests/my-config.yml'
     volumes:
       - ../EasyMiner-Performance-Tests:/EasyMiner-Performance-Tests
     networks:
