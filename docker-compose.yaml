@@ -4,6 +4,54 @@ volumes:
 networks:
   easyminer:
 services:
+  easyminer-mysql:
+    container_name: easyminer-mysql
+    image: mariadb:10
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    command: --sql_mode=""
+    networks:
+      - easyminer
+  easyminer-frontend:
+    volumes:
+#      - ./EasyMinerCenter/app:/var/www/html/easyminercenter/app
+#      - config_volume:/var/www/html/easyminercenter/app/config
+      - ./EasyMinerCenter/log:/var/www/html/easyminercenter/log
+    container_name: easyminer-frontend
+    image: wrtty/easyminer-frontend:dev
+    depends_on:
+      - easyminer-mysql
+    ports:
+      - "8894:80"
+    networks:
+      - easyminer
+  easyminer-backend:
+    container_name: easyminer-backend
+    image: kizi/easyminer-backend:v2.4
+    depends_on:
+      - easyminer-mysql
+    environment:
+      - EM_USER_ENDPOINT=http://easyminer-frontend/easyminercenter
+    ports:
+      ["8893:8893", "8892:8892", "8891:8891"]
+    networks:
+      - easyminer
+  easyminer-scorer:
+    container_name: easyminer-scorer
+    image: kizi/easyminer-scorer:v2.4
+    depends_on:
+      - easyminer-mysql
+    ports:
+      - "8080:8080"
+    networks:
+      - easyminer
+#  adminer:
+#    container_name: adminer
+#    image: adminer
+#    ports:
+#      - "8081:8080"
+#    networks:
+#      - easyminer
 # Monitoring
   prometheus:
     container_name: prometheus
