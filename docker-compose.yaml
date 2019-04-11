@@ -100,6 +100,11 @@ services:
   taurus:
     container_name: taurus
     image: wrtty/taurus:latest
+    depends_on:
+      - easyminer-mysql
+      - easyminer-scorer
+      - easyminer-backend
+      - easyminer-frontend
     ports:
       - '8008:8008'
     command:
