@@ -103,8 +103,8 @@ services:
     ports:
       - '8008:8008'
     command:
-      - '/EasyMiner-Performance-Tests/my-config.yml'
+      - '../EasyMiner-Performance-Tests/my-config.yml'
     volumes:
-      - /home/ri/projects/taurus/EasyMiner-Performance-Tests:/EasyMiner-Performance-Tests
+      - ../EasyMiner-Performance-Tests:/EasyMiner-Performance-Tests
     networks:
       - easyminer
