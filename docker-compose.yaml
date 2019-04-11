@@ -1,4 +1,4 @@
-version: "3"
+version: "2.1"
 volumes:
   config_volume:
 networks:
@@ -12,6 +12,10 @@ services:
     command: --sql_mode=""
     networks:
       - easyminer
+    healthcheck:
+      test: "mysql --host=easyminer-mysql --user=root --password=root  --execute='show databases' "
+      interval: 15s
+      retries: 5
   easyminer-frontend:
 #    volumes:
 #      - ./EasyMinerCenter/app:/var/www/html/easyminercenter/app
@@ -19,26 +23,38 @@ services:
 #      - ./EasyMinerCenter/log:/var/www/html/easyminercenter/log
     container_name: easyminer-frontend
 #    travisCI
-    image: wrtty/easyminer-frontend:dev
+#    image: wrtty/easyminer-frontend:dev
 #    local
-#    image: easyminer-frontend:v2.4-xweir00
-    depends_on:
-      - easyminer-mysql
+    image: easyminer-frontend:v2.4-xweir00
     ports:
       - "8894:80"
     networks:
       - easyminer
+    healthcheck:
+      test: "curl -f http://easyminer-frontend/easyminercenter"
+      interval: 30s
+      retries: 5
+    depends_on:
+      easyminer-mysql:
+        condition: service_healthy
+      easyminer-scorer:
+        condition: service_healthy
   easyminer-backend:
     container_name: easyminer-backend
     image: kizi/easyminer-backend:v2.4
-    depends_on:
-      - easyminer-mysql
     environment:
       - EM_USER_ENDPOINT=http://easyminer-frontend/easyminercenter
     ports:
       ["8893:8893", "8892:8892", "8891:8891"]
     networks:
       - easyminer
+    healthcheck:
+      test: "curl -f http://localhost:8891/easyminer-data/index.html && curl -f http://localhost:8892/easyminer-preprocessing/index.html && curl -f http://localhost:8893/easyminer-miner/index.html"
+      interval: 30s
+      retries: 5
+    depends_on:
+      easyminer-frontend:
+        condition: service_healthy
   easyminer-scorer:
     container_name: easyminer-scorer
     image: kizi/easyminer-scorer:v2.4
@@ -48,6 +64,10 @@ services:
       - "8080:8080"
     networks:
       - easyminer
+    healthcheck:
+      test: "curl -f http://localhost:8080/swagger-ui.html"
+      interval: 30s
+      retries: 5
 #  adminer:
 #    container_name: adminer
 #    image: adminer
@@ -60,10 +80,14 @@ services:
     container_name: prometheus
     image: prom/prometheus
     depends_on:
-      - easyminer-mysql
-      - easyminer-scorer
-      - easyminer-backend
-      - easyminer-frontend
+      easyminer-frontend:
+        condition: service_healthy
+      easyminer-backend:
+        condition: service_healthy
+      easyminer-scorer:
+        condition: service_healthy
+      easyminer-mysql:
+        condition: service_healthy
     command:
       - '--config.file=/etc/prometheus/confs/prometheus.yml'
     volumes:
@@ -119,18 +143,21 @@ services:
     container_name: taurus
     image: wrtty/taurus:latest
     depends_on:
-      - easyminer-mysql
-      - easyminer-scorer
-      - easyminer-backend
-      - easyminer-frontend
-      - grafana
+      easyminer-frontend:
+        condition: service_healthyg
+      easyminer-backend:
+        condition: service_healthy
+      easyminer-scorer:
+        condition: service_healthy
+      easyminer-mysql:
+        condition: service_healthy
     ports:
       - '8008:8008'
     command:
 #     TravisCI
-      - '../EasyMiner-Performance-Tests/my-config.yml'
+#      - '../EasyMiner-Performance-Tests/my-config.yml'
 #     Local
-#      - '/EasyMiner-Performance-Tests/my-config.yml'
+      - '/EasyMiner-Performance-Tests/my-config.yml'
     volumes:
       - ../EasyMiner-Performance-Tests:/EasyMiner-Performance-Tests
     networks:
