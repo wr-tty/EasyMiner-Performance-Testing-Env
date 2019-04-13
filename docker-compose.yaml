@@ -122,13 +122,17 @@ services:
     ports:
       - '3000:3000'
     environment:
-      - GF_SECURITY_ADMIN_PASSWORD=kolpkolp
+      #      - GF_SERVER_DOMAIN=perf.domain.test
+      #      - GF_SERVER_ROOT_URL=https://perf.domain.test
+      #      - GF_SECURITY_ADMIN_PASSWORD=kolpkolp
       # Be carefull with GF_SECURITY_ADMIN_USER (only enabled at database creation)
-      - GF_SECURITY_ADMIN_USER=admin
+      #      - GF_SECURITY_ADMIN_USER=admin
       # To disable basic auth for Grafana
-      #- GF_AUTH_BASIC_ENABLED=false
-      - GF_SERVER_DOMAIN=perf.domain.test
-      - GF_SERVER_ROOT_URL=https://perf.domain.test
+      - GF_AUTH_BASIC_ENABLED=false
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_DISABLE_LOGIN_FORM=true
+      #      - GF_AUTH_ORG_NAME=Kizi
+      #      - GF_AUTH_ORG_ROLE=Admin
     networks:
       - easyminer
 # Testing
