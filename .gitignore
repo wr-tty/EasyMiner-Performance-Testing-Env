@@ -1,2 +1,4 @@
 grafana_data/png
+prometheus_data/*
+!prometheus_data/README.md
 .idea

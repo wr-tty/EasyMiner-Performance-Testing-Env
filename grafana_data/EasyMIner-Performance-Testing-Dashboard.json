@@ -19,7 +19,7 @@
   "gnetId": 179,
   "graphTooltip": 1,
   "id": 11,
-  "iteration": 1554841601654,
+  "iteration": 1555187020487,
   "links": [
     {
       "asDropdown": false,
@@ -390,7 +390,7 @@
       "tableColumn": "__name__",
       "targets": [
         {
-          "expr": "sum(bzt_test_success_request)",
+          "expr": "sum(bzt_test_success_request_total)",
           "format": "time_series",
           "instant": false,
           "interval": "",
@@ -471,7 +471,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(bzt_test_error_request)",
+          "expr": "sum(bzt_test_error_request_total)",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -1843,7 +1843,7 @@
       }
     }
   ],
-  "refresh": false,
+  "refresh": "5s",
   "schemaVersion": 18,
   "style": "dark",
   "tags": [
@@ -1956,8 +1956,8 @@
     ]
   },
   "time": {
-    "from": "2019-04-09T15:13:02.255Z",
-    "to": "2019-04-09T15:17:16.507Z"
+    "from": "now-30m",
+    "to": "now"
   },
   "timepicker": {
     "refresh_intervals": [
@@ -1987,5 +1987,5 @@
   "timezone": "browser",
   "title": "EasyMiner Docker Monitoring",
   "uid": "Rq-JG_1iz",
-  "version": 39
+  "version": 41
 }
