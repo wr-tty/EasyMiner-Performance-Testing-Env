@@ -23,7 +23,7 @@ services:
 #      - ./EasyMinerCenter/log:/var/www/html/easyminercenter/log
     container_name: easyminer-frontend
 #    travisCI
-    image: wrtty/easyminer-frontend:dev
+    image: wrtty/easyminer-frontend:v2.4
 #    local
 #    image: easyminer-frontend:v2.4-xweir00
     ports:
@@ -155,9 +155,9 @@ services:
       - '8008:8008'
     command:
 #     TravisCI
-      - '../EasyMiner-Performance-Tests/my-config.yml'
+#      - '../EasyMiner-Performance-Tests/my-config.yml'
 #     Local
-#      - '/EasyMiner-Performance-Tests/my-config.yml'
+      - '/EasyMiner-Performance-Tests/my-config.yml'
     volumes:
       - ../EasyMiner-Performance-Tests:/EasyMiner-Performance-Tests
     networks:
