@@ -14,7 +14,7 @@ services:
     volumes:
       - ./EasyMiner-Performance-Tests:/EasyMiner-Performance-Tests
     environment:
-      - # you can pass any file from testing-data folder. Special characters must be escaped example: UCI\/test\/anneal0.csv
+      # you can pass any file from testing-data folder. Special characters must be escaped example: UCI\/test\/anneal0.csv
       - TAURUS_TEST_DATASET=Sacramentorealestatetransactions_10l.csv
     networks:
       - easyminer
