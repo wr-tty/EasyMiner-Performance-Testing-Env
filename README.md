@@ -36,6 +36,12 @@ Performance testing environment for [EasyMiner](https://github.com/KIZI/EasyMine
     ~~~bash
     docker-compose -f docker-compose-performance-testing.yaml up -d
     ~~~
+
+## Features
+
+* Pass dataset path by selection to TAURUS_TEST_DATASET variable in docker-compose-performance-testing.yaml.
+    * Escape special characters with backslash character "\" 
+    * TAURUS_TEST_DATASET variable accepts file path from testing-data folder.
     
 ## Troubleshooting
 
