@@ -10,7 +10,7 @@ Performance testing environment for [EasyMiner](https://github.com/KIZI/EasyMine
 
 ### Current version 
 
-* clone repositroy with command:
+* clone repository and his submodules with command:
     ~~~bash
     git clone --recurse-submodules git@github.com:wr-tty/EasyMiner-Performance-Testing-Env.git
     ~~~
