@@ -1,0 +1,17 @@
+version: "2.1"
+volumes:
+  config_volume:
+networks:
+  easyminer:
+services:
+  taurus:
+    container_name: taurus
+    image: wrtty/taurus:latest
+    ports:
+      - '8008:8008'
+    command:
+      - '/EasyMiner-Performance-Tests/my-config.yml'
+    volumes:
+      - ./EasyMiner-Performance-Tests:/EasyMiner-Performance-Tests
+    networks:
+      - easyminer

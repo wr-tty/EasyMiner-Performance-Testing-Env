@@ -1,4 +1,4 @@
-# EasyMiner Performance testing Environment
+# EasyMiner Performance Testing Environment
 
 Performance testing environment for [EasyMiner](https://github.com/KIZI/EasyMiner) project. Using docker-compose.yaml to setup performance testing. Contains Grafana, Prometheus, Node exporter, cAdvisor and Taurus.
 
@@ -7,8 +7,6 @@ Performance testing environment for [EasyMiner](https://github.com/KIZI/EasyMine
 * Docker
 
 ## Installing
-
-### Current version 
 
 * clone repository and his submodules with command:
     ~~~bash
@@ -26,39 +24,17 @@ Performance testing environment for [EasyMiner](https://github.com/KIZI/EasyMine
         ~~~bash
         chmod go+w EasyMiner-Performance-Testing-Env/grafana_data/grafana.db
         ~~~
-* Run command:
+* Run EasyMiner application with:
     ~~~bash
-    docker-compose up -d
+    docker-compose -f docker-compose-app.yaml up -d
     ~~~
-
-#### Older version 
-
-(before add [EasyMiner-Performance-Tests](https://github.com/wr-tty/EasyMiner-Performance-Tests) as submodule of repository.)
-
-* Create project root directory.
-* Clone [EasyMiner-Performance-Testing-Env](https://github.com/wr-tty/EasyMiner-Performance-Testing-Env) project into created directory.
-* Clone [EasyMiner-Performance-Tests](https://github.com/wr-tty/EasyMiner-Performance-Tests) project into same created directory.
-    * structure should look like this
-        ~~~
-        project_root_directory
-        ├── EasyMiner-Performance-Testing-Env
-        └── EasyMiner-Performance-Tests
-        ~~~
-* Set folders grafana_data and prometheus_data in EasyMiner-Performance-Testing-Env folder to permission mode 777.
-    * Should be writeable for group and others.
-    * You can run command:
-        ~~~bash
-        chmod go+w EasyMiner-Performance-Testing-Env/grafana_data/ EasyMiner-Performance-Testing-Env/prometheus_data/
-        ~~~
-* Set file EasyMiner-Performance-Testing-Env/grafana_data/grafana.db file to permission mode 777.
-    * Should be writeable for group and others.
-    * You can run command:
-        ~~~bash
-        chmod go+w EasyMiner-Performance-Testing-Env/grafana_data/grafana.db
-        ~~~
-* Run command:
+* Run monitoring with:
     ~~~bash
-    docker-compose up -d
+    docker-compose -f docker-compose-monitoring.yaml up -d
+    ~~~
+* Run Taurus tests with:
+    ~~~bash
+    docker-compose -f docker-compose-performance-testing.yaml up -d
     ~~~
     
 ## Troubleshooting
