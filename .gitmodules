@@ -1,0 +1,3 @@
+[submodule "EasyMiner-Performance-Tests"]
+	path = EasyMiner-Performance-Tests
+	url = git@github.com:wr-tty/EasyMiner-Performance-Tests.git

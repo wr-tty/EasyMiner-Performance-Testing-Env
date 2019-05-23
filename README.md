@@ -8,6 +8,33 @@ Performance testing environment for [EasyMiner](https://github.com/KIZI/EasyMine
 
 ## Installing
 
+### Current version 
+
+* clone repositroy with command:
+    ~~~bash
+    git clone --recurse-submodules git@github.com:wr-tty/EasyMiner-Performance-Testing-Env.git
+    ~~~
+* Set folders grafana_data and prometheus_data in EasyMiner-Performance-Testing-Env folder to permission mode 777.
+    * Should be writeable for group and others.
+    * You can run command:
+        ~~~bash
+        chmod go+w EasyMiner-Performance-Testing-Env/grafana_data/ EasyMiner-Performance-Testing-Env/prometheus_data/
+        ~~~
+* Set file EasyMiner-Performance-Testing-Env/grafana_data/grafana.db file to permission mode 777.
+    * Should be writeable for group and others.
+    * You can run command:
+        ~~~bash
+        chmod go+w EasyMiner-Performance-Testing-Env/grafana_data/grafana.db
+        ~~~
+* Run command:
+    ~~~bash
+    docker-compose up -d
+    ~~~
+
+#### Older version 
+
+(before add [EasyMiner-Performance-Tests](https://github.com/wr-tty/EasyMiner-Performance-Tests) as submodule of repository.)
+
 * Create project root directory.
 * Clone [EasyMiner-Performance-Testing-Env](https://github.com/wr-tty/EasyMiner-Performance-Testing-Env) project into created directory.
 * Clone [EasyMiner-Performance-Tests](https://github.com/wr-tty/EasyMiner-Performance-Tests) project into same created directory.
